@@ -5,6 +5,10 @@ from django.contrib.auth.models import User
 def clean_email(value):
     if 'info' in value:
         raise serializers.ValidationError('error`s in email')
+    if User.objects.filter(email__iexact=value).exists():
+        raise serializers.ValidationError('کاربر با این ایمیل قبلا ثبت نام شده')
+
+
 
 
 # class UserRegisterSerializers(serializers.Serializer):
